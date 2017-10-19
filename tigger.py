@@ -7,11 +7,9 @@ import json
 import multiprocessing
 import time
 
-"""
-This method is used for:
-    - retrieving message text, when the webhook is triggered with a message
-    - Getting the username of the person who posted the message if a command is recognized
-"""
+# This method is used for:
+#    - retrieving message text, when the webhook is triggered with a message
+#    - Getting the username of the person who posted the message if a command is recognized
 def sendSparkGET(url):
     request = urllib3.Request(
         url,
@@ -25,10 +23,8 @@ def sendSparkGET(url):
     print("RAN sendSparkGet")
     return contents
 
-"""
-This method is used for:
-    - posting a message to the Spark room to confirm that a command was received and processed
-"""
+# This method is used for:
+#    - posting a message to the Spark room to confirm that a command was received and processed
 def sendSparkPOST(url, data):
     request = urllib3.Request(
         url,
@@ -43,15 +39,10 @@ def sendSparkPOST(url, data):
     print("RAN sendSparkPost")
     return contents
 
-def spammer():
-	for i in range(15):
-		sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": "and they don't stop coming"})
-		time.sleep(1)
-	else:
-		sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": "Way to go, you almost broke me."})
-
 def sendSparkFile(fileMsg):
-    sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": fileMsg})
+    data = {"roomId": webhook['data']['roomId']}
+    data["files"] = fileMsg;
+    sendSparkPOST("https://api.ciscospark.com/v1/messages", data)
 
 def sendSparkMarkdown(markdown):
     print(markdown)
@@ -61,9 +52,16 @@ def sendSparkText(msg):
     print(msg)
     sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": msg})
 
+def spammer():
+	for i in range(15):
+		sendSparkText("and they don't stop coming")
+		time.sleep(1)
+	else:
+		sendSparkText("Way to go, you almost broke me.")
+
 qtest = None
 
-####CHANGE THESE VALUES#####
+# Constants
 jebpleaseclap = "https://media.giphy.com/media/l0NwPo3VHujpJDI4w/giphy.gif"
 trashdove = "http://i.imgur.com/50wBJit.gif"
 understood = "https://lh3.googleusercontent.com/hJlIRL8tQD9lG-x82xY3E5VW7hTEWd63MGnuSRASTdxSld3wzk3tGK_6BPp-F6U5z0HASxxCPKUNmoGnnTcBGTlVQ9nPIwDB5R4XQfIKna43SE8ac_C4_lZK3qedzTyxNDE0vPsyBGQvSPmiodb7ExScPJVp23PCe-UyRc3ZmVQtTVTLtcVFceINjw4w3Y3ydpoystUljD-6CJECx8ez2wkU1L0i2eDJZhlG256VmAO09nYO5WaRg3hft_6rk-lFkg45RJmWTfbwUMN5k4hb7S6gTkzlf59Xj1ZXStjqd-fOVLjyb1yRhoSEwtDz0vus0FDaMymED8mbnJ51QFJZ5H58caOTnuDD0H0BkltdHU_xupvwcg-ZwzyUpvAwP_YqGLwA19ziOeVsKda4qXAiYndzsX-WPAAIVdmhr9X8Xvhz4Oo8r7FoH5c-0ThONMkJMmwhS2_sWdpdG6QCvQS5U1tYkOKlo8hXKi_mLKJUBtYQqQLJ4F9GaAlOw8FBiHKyTGv0lsdUEb8OzB5pfK0qfq1yarNWKEw7Puhl6GPDx9ZKcZSH99abgWnqvpTgmjZGjITRL0R_ZVr49veilDH2viLsKFQ6yy79zdn6GyG8CdEx_bpDEFcGTGl-g0ijSxdGC0LO0aEAK0_ThfZcPjws96_01A9jEAJZ8c4bvd6BK-M=w1200-h675-no"
@@ -79,26 +77,23 @@ bearer = "****"
 HobbesBearer = "****"
 
 @post('/')
+
+# When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
+# using the sendSparkGet() function.  The message text is parsed.  If an expected command is found in the message,
+# further actions are taken. i.e.
 def index(request):
     print("index function ran")
-    """
-    When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
-    using the sendSparkGet() function.  The message text is parsed.  If an expected command is found in the message,
-    further actions are taken. i.e.
-    """
     global webhook
     webhook = json.loads(request.body)
     print(webhook['data']['id'])
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
     result = json.loads(result)
-    msg = None
-    markdown = None
     global qtest
     if webhook['data']['personEmail'] != bot_email:
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
         if '/help' in in_message:
-        	msg = "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’"
+        	sendSparkText("‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’")
         else:
             if 'cancer' in in_message:
             	sendSparkText("WARNING: This message contains chemicals known to the State of California to cause cancer and birth defects or other reproductive harm.")
@@ -138,9 +133,9 @@ def index(request):
             	sendSparkText("and they don't stop coming")
             if 'please stop' == in_message:
             	qtest.terminate()
-            	msg = " :( "
+            	sendSparkText(" :( ")
             if 'please' in in_message and 'clap' in in_message:
             	sendSparkFile(jebpleaseclap)
     return "true"
 
-run(server='wsgiref', host='0.0.0.0', port=8080)
+run(server='wsgiref', host='0.0.0.0', port=8069)
