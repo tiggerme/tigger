@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from itty import *
-import urllib2
+from bottle import get, post, run
+import urllib3
 import json
 import multiprocessing
 import time
@@ -13,7 +13,7 @@ This method is used for:
     - Getting the username of the person who posted the message if a command is recognized
 """
 def sendSparkGET(url):
-    request = urllib2.Request(
+    request = urllib3.Request(
         url,
         headers = {
             "Accept": "application/json",
@@ -21,8 +21,8 @@ def sendSparkGET(url):
             "Authorization": "Bearer " + bearer
         }
     )
-    contents = urllib2.urlopen(request).read()
-    print "RAN sendSparkGet"
+    contents = urllib3.urlopen(request).read()
+    print("RAN sendSparkGet")
     return contents
 
 """
@@ -30,7 +30,7 @@ This method is used for:
     - posting a message to the Spark room to confirm that a command was received and processed
 """
 def sendSparkPOST(url, data):
-    request = urllib2.Request(
+    request = urllib3.Request(
         url,
         json.dumps(data),
         headers = {
@@ -39,8 +39,8 @@ def sendSparkPOST(url, data):
             "Authorization": "Bearer " + HobbesBearer
         }
     )
-    contents = urllib2.urlopen(request).read()
-    print "RAN sendSparkPost"
+    contents = urllib3.urlopen(request).read()
+    print("RAN sendSparkPost")
     return contents
 
 def spammer():
@@ -54,11 +54,11 @@ def sendSparkFile(fileMsg):
     sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": fileMsg})
 
 def sendSparkMarkdown(markdown):
-    print markdown
+    print(markdown)
     sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "markdown": markdown})
 
 def sendSparkText(msg):
-    print msg
+    print(msg)
     sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": msg})
 
 qtest = None
@@ -80,7 +80,7 @@ HobbesBearer = "****"
 
 @post('/')
 def index(request):
-    print "index function ran"
+    print("index function ran")
     """
     When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
     using the sendSparkGet() function.  The message text is parsed.  If an expected command is found in the message,
@@ -88,7 +88,7 @@ def index(request):
     """
     global webhook
     webhook = json.loads(request.body)
-    print webhook['data']['id']
+    print(webhook['data']['id'])
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
     result = json.loads(result)
     msg = None
@@ -99,7 +99,7 @@ def index(request):
         in_message = in_message.replace(bot_name, '')
         if '/help' in in_message:
         	msg = "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’"
-        else
+        else:
             if 'cancer' in in_message:
             	sendSparkText("WARNING: This message contains chemicals known to the State of California to cause cancer and birth defects or other reproductive harm.")
             if 'chuck' in in_message or "chuckco" in in_message:
@@ -143,4 +143,4 @@ def index(request):
             	sendSparkFile(jebpleaseclap)
     return "true"
 
-run_itty(server='wsgiref', host='0.0.0.0', port=8080)
+run(server='wsgiref', host='0.0.0.0', port=8080)
