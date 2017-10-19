@@ -39,25 +39,17 @@ def sendSparkPOST(url, data):
     print("RAN sendSparkPost")
     return contents
 
-def sendSparkFile(fileMsg):
+def sendSparkMsg(type, pkg):
     data = {"roomId": webhook['data']['roomId']}
-    data["files"] = fileMsg;
+    data[type] = pkg;
     sendSparkPOST("https://api.ciscospark.com/v1/messages", data)
-
-def sendSparkMarkdown(markdown):
-    print(markdown)
-    sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "markdown": markdown})
-
-def sendSparkText(msg):
-    print(msg)
-    sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": msg})
 
 def spammer():
 	for i in range(15):
-		sendSparkText("and they don't stop coming")
+		sendSparkMsg("text", "and they don't stop coming")
 		time.sleep(1)
 	else:
-		sendSparkText("Way to go, you almost broke me.")
+		sendSparkMsg("text", "Way to go, you almost broke me.")
 
 qtest = None
 
@@ -93,49 +85,49 @@ def index(request):
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
         if '/help' in in_message:
-        	sendSparkText("‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’")
+        	sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’")
         else:
             if 'cancer' in in_message:
-            	sendSparkText("WARNING: This message contains chemicals known to the State of California to cause cancer and birth defects or other reproductive harm.")
+            	sendSparkMsg("text", "WARNING: This message contains chemicals known to the State of California to cause cancer and birth defects or other reproductive harm.")
             if 'chuck' in in_message or "chuckco" in in_message:
-                sendSparkMarkdown("#  𝓹𝓻𝓪𝓲𝓼𝓮 𝓫𝓮 𝓾𝓷𝓽𝓸 𝓱𝓲𝓶")
+                sendSparkMsg("markdown", "#  𝓹𝓻𝓪𝓲𝓼𝓮 𝓫𝓮 𝓾𝓷𝓽𝓸 𝓱𝓲𝓶")
             if '/not too' in in_message or 'not too' in in_message or 'jeans' in in_message:
-            	sendSparkFile(Jeans)
+            	sendSparkMsg("files", Jeans)
             if 'waste' in in_message and 'time' in in_message:
-            	sendSparkFile(calvintime)
+            	sendSparkMsg("files", calvintime)
             if 'be humble' in in_message:
-            	sendSparkText("Sit down")
+            	sendSparkMsg("text", "Sit down")
             if 'sit down' in in_message:
-            	sendSparkText("Be humble (lil bitch)")
+            	sendSparkMsg("text", "Be humble (lil bitch)")
             if 'fake news' in in_message:
-            	sendSparkText("WRONG!")
+            	sendSparkMsg("text", "WRONG!")
             if 'wrong' in in_message:
-            	sendSparkText("Fake news")
+            	sendSparkMsg("text", "Fake news")
             if 'cisco' in in_message and '.com' not in in_message:
-            	sendSparkText(".:|:.:|:. Chuck Co .:|:.:|:.")
+            	sendSparkMsg("text", ".:|:.:|:. Chuck Co .:|:.:|:.")
             if 'bug' in in_message:
-            	sendSparkFile(bryanBug)
+            	sendSparkMsg("files", bryanBug)
             if 'steam' in in_message and 'ham' in in_message:
-            	sendSparkFile(steamedham)
+            	sendSparkMsg("files", steamedham)
             if 'children' in in_message:
-            	sendSparkFile(children)
+            	sendSparkMsg("files", children)
             if 'fuck yea' in in_message or 'trashdove' in in_message or 'hell yea' in in_message:
-            	sendSparkFile(trashdove)
+            	sendSparkMsg("files", trashdove)
             if 'good shit' in in_message:
-            	sendSparkMarkdown("# 👌👀👌👀👌👀👌👀👌👀 good shit go౦ԁ sHit👌 thats ✔ some good👌👌shit right👌👌there👌👌👌 right✔there ✔✔if i do ƽaү so my self 💯 i say so 💯 thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ💯 👌👌 👌НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ👌 👌👌 👌 💯 👌 👀 👀 👀 👌👌")
+            	sendSparkMsg("markdown", "# 👌👀👌👀👌👀👌👀👌👀 good shit go౦ԁ sHit👌 thats ✔ some good👌👌shit right👌👌there👌👌👌 right✔there ✔✔if i do ƽaү so my self 💯 i say so 💯 thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ💯 👌👌 👌НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ👌 👌👌 👌 💯 👌 👀 👀 👀 👌👌")
             if 'understood' in in_message:
-            	sendSparkFile(understood)
+            	sendSparkMsg("files", understood)
             if 'allahu' in in_message and 'akbar' not in in_message:
-            	sendSparkText("akbar")
+            	sendSparkMsg("text", "akbar")
             if 'well' in in_message and ('start coming' in in_message or 'starts coming' in in_message):
             	qtest = multiprocessing.Process(target=spammer)
             	qtest.start()
-            	sendSparkText("and they don't stop coming")
+            	sendSparkMsg("text", "and they don't stop coming")
             if 'please stop' == in_message:
             	qtest.terminate()
-            	sendSparkText(" :( ")
+            	sendSparkMsg("text", " :( ")
             if 'please' in in_message and 'clap' in in_message:
-            	sendSparkFile(jebpleaseclap)
+            	sendSparkMsg("files", jebpleaseclap)
     return "true"
 
 run(server='wsgiref', host='0.0.0.0', port=8069)
