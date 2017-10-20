@@ -11,6 +11,7 @@ import time
 #    - retrieving message text, when the webhook is triggered with a message
 #    - Getting the username of the person who posted the message if a command is recognized
 def sendSparkGET(url):
+    print("Run: sendSparkGet")
     request = urllib3.Request(
         url,
         headers = {
@@ -20,12 +21,12 @@ def sendSparkGET(url):
         }
     )
     contents = urllib3.urlopen(request).read()
-    print("RAN sendSparkGet")
     return contents
 
 # This method is used for:
 #    - posting a message to the Spark room to confirm that a command was received and processed
 def sendSparkPOST(url, data):
+    print("Run sendSparkPost")
     request = urllib3.Request(
         url,
         json.dumps(data),
@@ -36,12 +37,11 @@ def sendSparkPOST(url, data):
         }
     )
     contents = urllib3.urlopen(request).read()
-    print("RAN sendSparkPost")
     return contents
 
 def sendSparkMsg(type, pkg):
     data = {"roomId": webhook['data']['roomId']}
-    data[type] = pkg;
+    data[type] = pkg
     sendSparkPOST("https://api.ciscospark.com/v1/messages", data)
 
 def spammer():
@@ -63,6 +63,8 @@ calvintime = "http://i3.kym-cdn.com/photos/images/original/000/897/738/706.png"
 Jeans = "https://lh3.googleusercontent.com/SEKZgteoZn6-_fNJLWET5gPybQOKdOkdJG4pvUq2umoTL8oLBBIzUMASm9MPMEeaPMGqURkNeZOc028FeiAU5fEivXST_64r0KoJKyDWYP4b4kWkR4MhXSvYq1lHNkP5g9AQb6DunyHCHGI0e1dts8mbtdgPV_KOBzi5ExAepzm7JHPALlOM054E6RNXXxziMiQQu0TbeUo2O4Nw29XWTfiEiFPcV3x67f0wTRFsmCWPdb7lucczI7aOZfCyZ49-A1fBOnLHG5GPKhebrZjULsYH3Ju5i9FHKIOSqoZ7f0i11jePcC_R7AKHYewC2BJWUTrRGevn8fh07vhhl9F_0JQlF2qoGHB2RGzwJdXWq8JwgGCu8RkiQnUXecuhO4KjjtzAfWa0fV22kD7ojT4YEIyEI6wE7e7Q9rTR6TY58Q_Zozkc5n6S8m8_RQ3NmQxuySPSXu9vp7KzmUJ3Pc12Exqnq-U9ELfUoPyH676pPm8qXM3N_jOswtPxNwz2nFK9GK6pbhsJmOZ3DLSbiioBjvbKtE7rh_n1Vs3yFkQDKhK1iPnNf5RrT96UjrXsYG163l8DbFhZjaltOcBPxWZ8do0aTmfmgiVJ2fatuFP6xx5Nlw-VDjZNHxPI9u2hXLgcDa4PhRHBcaNG43cNHa34ocy2Tr240ItCmmD9VMVGJn8=w478-h592-no"
 Jonathan = "https://lh3.googleusercontent.com/BZa-vEfXiCPh1y02kPEQo6U1YbkoaEkmybpnP_u0b35kLtmHHI9lcq-VUn_sUbL50nBjzq9r2Z_nFJIHwubQtuLd9Sd4O3E8cb4cM5HzOd8DfJzIjbapaC6xZ2kKbeD06jymUqk=w315-h420-no"
 bryanBug = "https://lh3.googleusercontent.com/xScm_RRPDSzEkPrwymbufoMAzdbineiebFfAyAHParC2KpzntnrP41s8Gjs69GfWkgCaldnMm9TW6LxonYEbG77Duehy_8VjtazihtpAmdKLkm4euKg5v4-5OpbslYV1wMS2gJo=w287-h375-no"
+cashMeOutside = "https://media.giphy.com/media/26gIOEsGb5mcTiQEw/giphy.gif"
+jabbascript = "http://churchm.ag/wp-content/uploads/2011/01/jabbascript.jpg"
 bot_email = "hobbes@sparkbot.io"
 bot_name = "Hobbes"
 bearer = "****"
@@ -74,7 +76,7 @@ HobbesBearer = "****"
 # using the sendSparkGet() function.  The message text is parsed.  If an expected command is found in the message,
 # further actions are taken. i.e.
 def index(request):
-    print("index function ran")
+    print("Run: index")
     global webhook
     webhook = json.loads(request.body)
     print(webhook['data']['id'])
@@ -84,8 +86,10 @@ def index(request):
     if webhook['data']['personEmail'] != bot_email:
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
+        # This is the location for basic commands
         if '/help' in in_message:
         	sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’")
+        # This is the location for text responses
         else:
             if 'cancer' in in_message:
             	sendSparkMsg("text", "WARNING: This message contains chemicals known to the State of California to cause cancer and birth defects or other reproductive harm.")
@@ -128,6 +132,10 @@ def index(request):
             	sendSparkMsg("text", " :( ")
             if 'please' in in_message and 'clap' in in_message:
             	sendSparkMsg("files", jebpleaseclap)
+            if 'cash me outside' in in_message:
+                sendSparkMsg("files", cashMeOutside)
+            if 'jabbascript' in in_message:
+                sendSparkMsg("files", jabbascript)
     return "true"
 
 run(server='wsgiref', host='0.0.0.0', port=8069)
