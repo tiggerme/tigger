@@ -65,6 +65,7 @@ Jonathan = "https://lh3.googleusercontent.com/BZa-vEfXiCPh1y02kPEQo6U1YbkoaEkmyb
 bryanBug = "https://lh3.googleusercontent.com/xScm_RRPDSzEkPrwymbufoMAzdbineiebFfAyAHParC2KpzntnrP41s8Gjs69GfWkgCaldnMm9TW6LxonYEbG77Duehy_8VjtazihtpAmdKLkm4euKg5v4-5OpbslYV1wMS2gJo=w287-h375-no"
 cashMeOutside = "https://media.giphy.com/media/26gIOEsGb5mcTiQEw/giphy.gif"
 jabbascript = "http://churchm.ag/wp-content/uploads/2011/01/jabbascript.jpg"
+gitGud = "https://i.imgur.com/QdCdfmD.gif"
 bot_email = "hobbes@sparkbot.io"
 bot_name = "Hobbes"
 bearer = "****"
@@ -136,6 +137,8 @@ def index(request):
                 sendSparkMsg("files", cashMeOutside)
             if 'jabbascript' in in_message:
                 sendSparkMsg("files", jabbascript)
+            if 'git gud' in in_message:
+                sendSparkMsg("files", gitGud)
     return "true"
 
 run(server='wsgiref', host='0.0.0.0', port=8069)
