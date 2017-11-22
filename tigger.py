@@ -78,7 +78,7 @@ bot_name = "Tigger Me"
 
 bearer = os.environ.get('TIGGER_TOKEN')
 if bearer == None:
-    bearer = "ayylmao nicetry"
+    bearer = "YmNjZTI3M2YtMzYzOC00YzFmLTliNzctYTcwYzMzMmEzNTgxNTk5ZTViMDUtOWZk"
 
 @post('/')
 # When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
