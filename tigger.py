@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from bottle import get, post, run
-import urllib3
+import os
+from bottle import get, post, run, request
+import requests
 import json
 import multiprocessing
 import time
@@ -12,7 +13,7 @@ import time
 #    - Getting the username of the person who posted the message if a command is recognized
 def sendSparkGET(url):
     print("Run: sendSparkGet")
-    request = urllib3.Request(
+    response = requests.get(
         url,
         headers = {
             "Accept": "application/json",
@@ -20,28 +21,29 @@ def sendSparkGET(url):
             "Authorization": "Bearer " + bearer
         }
     )
-    contents = urllib3.urlopen(request).read()
-    return contents
+    response.raise_for_status()
+    return response.json()
 
 # This method is used for:
 #    - posting a message to the Spark room to confirm that a command was received and processed
 def sendSparkPOST(url, data):
     print("Run sendSparkPost")
-    request = urllib3.Request(
+    response = requests.post(
         url,
-        json.dumps(data),
+        data=json.dumps(data),
         headers = {
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + HobbesBearer
+            "Authorization": "Bearer " + bearer
         }
     )
-    contents = urllib3.urlopen(request).read()
-    return contents
+    response.raise_for_status()
+    return response.json()
 
-def sendSparkMsg(type, pkg):
+def sendSparkMsg(_type, pkg):
     data = {"roomId": webhook['data']['roomId']}
-    data[type] = pkg
+    data[_type] = pkg
+    print(data)
     sendSparkPOST("https://api.ciscospark.com/v1/messages", data)
 
 def spammer():
@@ -65,30 +67,32 @@ Jonathan = "https://lh3.googleusercontent.com/BZa-vEfXiCPh1y02kPEQo6U1YbkoaEkmyb
 bryanBug = "https://lh3.googleusercontent.com/xScm_RRPDSzEkPrwymbufoMAzdbineiebFfAyAHParC2KpzntnrP41s8Gjs69GfWkgCaldnMm9TW6LxonYEbG77Duehy_8VjtazihtpAmdKLkm4euKg5v4-5OpbslYV1wMS2gJo=w287-h375-no"
 cashMeOutside = "https://media.giphy.com/media/26gIOEsGb5mcTiQEw/giphy.gif"
 jabbascript = "http://churchm.ag/wp-content/uploads/2011/01/jabbascript.jpg"
-bot_email = "hobbes@sparkbot.io"
-bot_name = "Hobbes"
-bearer = "****"
-HobbesBearer = "****"
+gitGud = "https://i.imgur.com/QdCdfmD.gif"
+nani="https://i.ytimg.com/vi/U_0eocL8aGA/maxresdefault.jpg"
+bot_email = "tiggermepls@gmail.com"
+bot_name = "Tigger Me"
+
+bearer = os.environ.get('TIGGER_TOKEN')
+if bearer == None:
+    bearer = "ayylmao nicetry"
 
 @post('/')
-
 # When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
 # using the sendSparkGet() function.  The message text is parsed.  If an expected command is found in the message,
 # further actions are taken. i.e.
-def index(request):
+def index():
     print("Run: index")
     global webhook
-    webhook = json.loads(request.body)
+    webhook = request.json
     print(webhook['data']['id'])
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
-    result = json.loads(result)
     global qtest
     if webhook['data']['personEmail'] != bot_email:
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
         # This is the location for basic commands
         if '/help' in in_message:
-        	sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’")
+        	sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’")
         # This is the location for text responses
         else:
             if 'cancer' in in_message:
@@ -96,9 +100,9 @@ def index(request):
             if 'chuck' in in_message or "chuckco" in in_message:
                 sendSparkMsg("markdown", "#  𝓹𝓻𝓪𝓲𝓼𝓮 𝓫𝓮 𝓾𝓷𝓽𝓸 𝓱𝓲𝓶")
             if '/not too' in in_message or 'not too' in in_message or 'jeans' in in_message:
-            	sendSparkMsg("files", Jeans)
+            	sendSparkMsg("files", [Jeans])
             if 'waste' in in_message and 'time' in in_message:
-            	sendSparkMsg("files", calvintime)
+            	sendSparkMsg("files", [calvintime])
             if 'be humble' in in_message:
             	sendSparkMsg("text", "Sit down")
             if 'sit down' in in_message:
@@ -110,17 +114,17 @@ def index(request):
             if 'cisco' in in_message and '.com' not in in_message:
             	sendSparkMsg("text", ".:|:.:|:. Chuck Co .:|:.:|:.")
             if 'bug' in in_message:
-            	sendSparkMsg("files", bryanBug)
+            	sendSparkMsg("files", [bryanBug])
             if 'steam' in in_message and 'ham' in in_message:
-            	sendSparkMsg("files", steamedham)
+            	sendSparkMsg("files", [steamedham])
             if 'children' in in_message:
-            	sendSparkMsg("files", children)
+            	sendSparkMsg("files", [children])
             if 'fuck yea' in in_message or 'trashdove' in in_message or 'hell yea' in in_message:
-            	sendSparkMsg("files", trashdove)
+            	sendSparkMsg("files", [trashdove])
             if 'good shit' in in_message:
             	sendSparkMsg("markdown", "# 👌👀👌👀👌👀👌👀👌👀 good shit go౦ԁ sHit👌 thats ✔ some good👌👌shit right👌👌there👌👌👌 right✔there ✔✔if i do ƽaү so my self 💯 i say so 💯 thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ💯 👌👌 👌НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ👌 👌👌 👌 💯 👌 👀 👀 👀 👌👌")
             if 'understood' in in_message:
-            	sendSparkMsg("files", understood)
+            	sendSparkMsg("files", [understood])
             if 'allahu' in in_message and 'akbar' not in in_message:
             	sendSparkMsg("text", "akbar")
             if 'well' in in_message and ('start coming' in in_message or 'starts coming' in in_message):
@@ -131,11 +135,16 @@ def index(request):
             	qtest.terminate()
             	sendSparkMsg("text", " :( ")
             if 'please' in in_message and 'clap' in in_message:
-            	sendSparkMsg("files", jebpleaseclap)
+            	sendSparkMsg("files", [jebpleaseclap])
             if 'cash me outside' in in_message:
-                sendSparkMsg("files", cashMeOutside)
+                sendSparkMsg("files", [cashMeOutside])
             if 'jabbascript' in in_message:
-                sendSparkMsg("files", jabbascript)
+                sendSparkMsg("files", [jabbascript])
+            if 'git gud' in in_message:
+                sendSparkMsg("files", [gitGud])
+            if 'nani' in in_message:
+                sendSparkMsg("files", [nani])
     return "true"
 
-run(server='wsgiref', host='0.0.0.0', port=8069)
+port = int(os.environ.get("PORT", 8069))
+run(server='wsgiref', host='0.0.0.0', port=port)
