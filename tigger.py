@@ -68,6 +68,7 @@ bryanBug = "https://lh3.googleusercontent.com/xScm_RRPDSzEkPrwymbufoMAzdbineiebF
 cashMeOutside = "https://media.giphy.com/media/26gIOEsGb5mcTiQEw/giphy.gif"
 jabbascript = "http://churchm.ag/wp-content/uploads/2011/01/jabbascript.jpg"
 gitGud = "https://i.imgur.com/QdCdfmD.gif"
+nani="https://i.ytimg.com/vi/U_0eocL8aGA/maxresdefault.jpg"
 bot_email = "tiggermepls@gmail.com"
 bot_name = "Tigger Me"
 
@@ -91,7 +92,7 @@ def index():
         in_message = in_message.replace(bot_name, '')
         # This is the location for basic commands
         if '/help' in in_message:
-        	sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’")
+        	sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’")
         # This is the location for text responses
         else:
             if 'cancer' in in_message:
@@ -141,6 +142,8 @@ def index():
                 sendSparkMsg("files", [jabbascript])
             if 'git gud' in in_message:
                 sendSparkMsg("files", [gitGud])
+            if 'nani' in in_message:
+                sendSparkMsg("files", [nani])
     return "true"
 
 port = int(os.environ.get("PORT", 8069))
