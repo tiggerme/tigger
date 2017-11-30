@@ -69,6 +69,7 @@ cashMeOutside = "https://media.giphy.com/media/26gIOEsGb5mcTiQEw/giphy.gif"
 jabbascript = "http://churchm.ag/wp-content/uploads/2011/01/jabbascript.jpg"
 gitGud = "https://i.imgur.com/QdCdfmD.gif"
 nani="https://i.ytimg.com/vi/U_0eocL8aGA/maxresdefault.jpg"
+backdoor="https://i.imgur.com/bgwbje5.gif"
 bot_email = "tiggermepls@gmail.com"
 bot_name = "Tigger Me"
 
@@ -144,6 +145,8 @@ def index():
                 sendSparkMsg("files", [gitGud])
             if 'nani' in in_message:
                 sendSparkMsg("files", [nani])
+            if 'backdoor' in in_message:
+                sendSparkMsg("files", [backdoor])
     return "true"
 
 port = int(os.environ.get("PORT", 8069))
