@@ -144,6 +144,10 @@ def index():
                 sendSparkMsg("files", [gitGud])
             if 'nani' in in_message:
                 sendSparkMsg("files", [nani])
+            if 'good bot' in in_message:
+                sendSparkMsg("text", "fuck you!")
+            if 'triggered' in in_message:
+                sendSparkMsg("text", "TIGGER-ED!")
     return "true"
 
 port = int(os.environ.get("PORT", 8069))
