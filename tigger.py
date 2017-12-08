@@ -70,6 +70,9 @@ jabbascript = "http://churchm.ag/wp-content/uploads/2011/01/jabbascript.jpg"
 gitGud = "https://i.imgur.com/QdCdfmD.gif"
 nani="https://i.ytimg.com/vi/U_0eocL8aGA/maxresdefault.jpg"
 backdoor="https://i.imgur.com/bgwbje5.gif"
+lolHarold="https://i.imgur.com/Yf8JBm5.gif"
+hueHueHue="https://i.imgur.com/rSZf8E7.gif"
+
 bot_email = "tiggermepls@gmail.com"
 bot_name = "Tigger Me"
 
@@ -147,6 +150,14 @@ def index():
                 sendSparkMsg("files", [nani])
             if 'backdoor' in in_message:
                 sendSparkMsg("files", [backdoor])
+            if 'good bot' in in_message:
+                sendSparkMsg("text", "fuck you!")
+            if 'triggered' in in_message:
+                sendSparkMsg("text", "TIGGER-ED!")
+            if 'hyperlul' in in_message:
+                sendSparkMsg("files", [lolHarold])
+            if "huehuehue" in in_message:
+                sendSparkMsg("files", [hueHueHue])
     return "true"
 
 port = int(os.environ.get("PORT", 8069))
