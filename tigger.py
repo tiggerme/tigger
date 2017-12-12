@@ -72,6 +72,7 @@ nani="https://i.ytimg.com/vi/U_0eocL8aGA/maxresdefault.jpg"
 backdoor="https://i.imgur.com/bgwbje5.gif"
 lolHarold="https://i.imgur.com/Yf8JBm5.gif"
 hueHueHue="https://i.imgur.com/rSZf8E7.gif"
+never="https://i.imgur.com/6gf1TXj.gif"
 
 bot_email = "tiggermepls@gmail.com"
 bot_name = "Tigger Me"
@@ -158,6 +159,8 @@ def index():
                 sendSparkMsg("files", [lolHarold])
             if "huehuehue" in in_message:
                 sendSparkMsg("files", [hueHueHue])
+            if "never" in in_message:
+                sendSparkMsg("files", [never])
     return "true"
 
 port = int(os.environ.get("PORT", 8069))
