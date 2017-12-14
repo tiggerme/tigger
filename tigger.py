@@ -97,7 +97,7 @@ def index():
         in_message = in_message.replace(bot_name, '')
         # This is the location for basic commands
         if '/help' in in_message:
-            sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’")
+            sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’\n ’help’")
         # This is the location for text responses
         else:
             if 'cancer' in in_message:
