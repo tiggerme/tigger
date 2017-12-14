@@ -47,11 +47,11 @@ def sendSparkMsg(_type, pkg):
     sendSparkPOST("https://api.ciscospark.com/v1/messages", data)
 
 def spammer():
-	for i in range(15):
-		sendSparkMsg("text", "and they don't stop coming")
-		time.sleep(1)
-	else:
-		sendSparkMsg("text", "Way to go, you almost broke me.")
+    for i in range(15):
+        sendSparkMsg("text", "and they don't stop coming")
+        time.sleep(1)
+    else:
+        sendSparkMsg("text", "Way to go, you almost broke me.")
 
 qtest = None
 
@@ -97,50 +97,50 @@ def index():
         in_message = in_message.replace(bot_name, '')
         # This is the location for basic commands
         if '/help' in in_message:
-        	sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’")
+            sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’")
         # This is the location for text responses
         else:
             if 'cancer' in in_message:
-            	sendSparkMsg("text", "WARNING: This message contains chemicals known to the State of California to cause cancer and birth defects or other reproductive harm.")
+                sendSparkMsg("text", "WARNING: This message contains chemicals known to the State of California to cause cancer and birth defects or other reproductive harm.")
             if 'chuck' in in_message or "chuckco" in in_message:
                 sendSparkMsg("markdown", "#  𝓹𝓻𝓪𝓲𝓼𝓮 𝓫𝓮 𝓾𝓷𝓽𝓸 𝓱𝓲𝓶")
             if '/not too' in in_message or 'not too' in in_message or 'jeans' in in_message:
-            	sendSparkMsg("files", [Jeans])
+                sendSparkMsg("files", [Jeans])
             if 'waste' in in_message and 'time' in in_message:
-            	sendSparkMsg("files", [calvintime])
+                sendSparkMsg("files", [calvintime])
             if 'be humble' in in_message:
-            	sendSparkMsg("text", "Sit down")
+                sendSparkMsg("text", "Sit down")
             if 'sit down' in in_message:
-            	sendSparkMsg("text", "Be humble (lil bitch)")
+                sendSparkMsg("text", "Be humble (lil bitch)")
             if 'fake news' in in_message:
-            	sendSparkMsg("text", "WRONG!")
+                sendSparkMsg("text", "WRONG!")
             if 'wrong' in in_message:
-            	sendSparkMsg("text", "Fake news")
+                sendSparkMsg("text", "Fake news")
             if 'cisco' in in_message and '.com' not in in_message:
-            	sendSparkMsg("text", ".:|:.:|:. Chuck Co .:|:.:|:.")
+                sendSparkMsg("text", ".:|:.:|:. Chuck Co .:|:.:|:.")
             if 'bug' in in_message:
-            	sendSparkMsg("files", [bryanBug])
+                sendSparkMsg("files", [bryanBug])
             if 'steam' in in_message and 'ham' in in_message:
-            	sendSparkMsg("files", [steamedham])
+                sendSparkMsg("files", [steamedham])
             if 'children' in in_message:
-            	sendSparkMsg("files", [children])
+                sendSparkMsg("files", [children])
             if 'fuck yea' in in_message or 'trashdove' in in_message or 'hell yea' in in_message:
-            	sendSparkMsg("files", [trashdove])
+                sendSparkMsg("files", [trashdove])
             if 'good shit' in in_message:
-            	sendSparkMsg("markdown", "# 👌👀👌👀👌👀👌👀👌👀 good shit go౦ԁ sHit👌 thats ✔ some good👌👌shit right👌👌there👌👌👌 right✔there ✔✔if i do ƽaү so my self 💯 i say so 💯 thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ💯 👌👌 👌НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ👌 👌👌 👌 💯 👌 👀 👀 👀 👌👌")
+                sendSparkMsg("markdown", "# 👌👀👌👀👌👀👌👀👌👀 good shit go౦ԁ sHit👌 thats ✔ some good👌👌shit right👌👌there👌👌👌 right✔there ✔✔if i do ƽaү so my self 💯 i say so 💯 thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ💯 👌👌 👌НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ👌 👌👌 👌 💯 👌 👀 👀 👀 👌👌")
             if 'understood' in in_message:
-            	sendSparkMsg("files", [understood])
+                sendSparkMsg("files", [understood])
             if 'allahu' in in_message and 'akbar' not in in_message:
-            	sendSparkMsg("text", "akbar")
+                sendSparkMsg("text", "akbar")
             if 'well' in in_message and ('start coming' in in_message or 'starts coming' in in_message):
-            	qtest = multiprocessing.Process(target=spammer)
-            	qtest.start()
-            	sendSparkMsg("text", "and they don't stop coming")
+                qtest = multiprocessing.Process(target=spammer)
+                qtest.start()
+                sendSparkMsg("text", "and they don't stop coming")
             if 'please stop' == in_message:
-            	qtest.terminate()
-            	sendSparkMsg("text", " :( ")
+                qtest.terminate()
+                sendSparkMsg("text", " :( ")
             if 'please' in in_message and 'clap' in in_message:
-            	sendSparkMsg("files", [jebpleaseclap])
+                sendSparkMsg("files", [jebpleaseclap])
             if 'cash me outside' in in_message:
                 sendSparkMsg("files", [cashMeOutside])
             if 'jabbascript' in in_message:
@@ -161,6 +161,8 @@ def index():
                 sendSparkMsg("files", [hueHueHue])
             if "never" in in_message:
                 sendSparkMsg("files", [never])
+            if "logs" in in_message:
+                sendSparkMsg("text", "The Lincoln logs look on the Lincoln logs unlock the Lincoln logs in laws suck my linking logs.")
     return "true"
 
 port = int(os.environ.get("PORT", 8069))
