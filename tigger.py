@@ -73,13 +73,17 @@ backdoor="https://i.imgur.com/bgwbje5.gif"
 lolHarold="https://i.imgur.com/Yf8JBm5.gif"
 hueHueHue="https://i.imgur.com/rSZf8E7.gif"
 never="https://i.imgur.com/6gf1TXj.gif"
+developers="https://thumbs.gfycat.com/CheerfulAbandonedAmethystsunbird-max-1mb.gif"
+party="https://i.imgur.com/mP8ZRTX.gif"
+normies="https://i.imgur.com/8bdx5RF.gif"
+triggered="https://i.imgur.com/5HAvEKk.gif"
 
 bot_email = "tiggermepls@gmail.com"
 bot_name = "Tigger Me"
 
 bearer = os.environ.get('TIGGER_TOKEN')
 if bearer == None:
-    bearer = "YmNjZTI3M2YtMzYzOC00YzFmLTliNzctYTcwYzMzMmEzNTgxNTk5ZTViMDUtOWZk"
+    bearer = "erik is a dingus"
 
 @post('/')
 # When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
@@ -97,7 +101,7 @@ def index():
         in_message = in_message.replace(bot_name, '')
         # This is the location for basic commands
         if '/help' in in_message:
-            sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’\n ’help’\n ’backdoor’ or ’IANAL’")
+            sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’\n ’never’\n ’logs’\n ’party’\n ’developer’\n ’backdoor’ or ’IANAL’")
         # This is the location for text responses
         else:
             if 'cancer' in in_message:
@@ -155,6 +159,7 @@ def index():
                 sendSparkMsg("text", "fuck you!")
             if 'triggered' in in_message:
                 sendSparkMsg("text", "TIGGER-ED!")
+                sendSparkMsg("files", [triggered])
             if 'hyperlul' in in_message:
                 sendSparkMsg("files", [lolHarold])
             if "huehuehue" in in_message:
@@ -163,6 +168,11 @@ def index():
                 sendSparkMsg("files", [never])
             if "logs" in in_message:
                 sendSparkMsg("text", "The Lincoln logs look on the Lincoln logs unlock the Lincoln logs in laws suck my linking logs.")
+                sendSparkMsg("files", [developers])
+            if "party" in in_message:
+                sendSparkMsg("files", [party])
+            if "normies" in in_message:
+                sendSparkMsg("files", [normies])
     return "true"
 
 port = int(os.environ.get("PORT", 8069))
