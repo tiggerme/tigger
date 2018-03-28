@@ -101,7 +101,7 @@ def index():
         in_message = in_message.replace(bot_name, '')
         # This is the location for basic commands
         if '/help' in in_message:
-            sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’\n ’never’\n ’logs’\n ’party’\n ’developer’\n")
+            sendSparkMsg("text", "‘chuck’ or ‘chuckco’ - responds with 'praise be unto him'\n ’/not too’ or ‘not too’ or ‘jeans’\n 'help'\n ‘waste’ and ‘time’\n ’be humble’\n ’sit down’\n ‘fake news’\n ‘wrong’\n ‘cisco’\n ‘bug’\n ‘steam’ and ‘hams’\n ‘children’\n ‘fuck yea’ or ‘trashdove’ or ‘hell yea’\n ’good shit’\n ’understood’\n ‘allahu’\n ’well’ and ‘start coming’ or ‘starts coming’\n ’please clap’\n ’nani’\n ’never’\n ’logs’\n ’party’\n ’developer’\n ’backdoor’ or ’IANAL’")
         # This is the location for text responses
         else:
             if 'cancer' in in_message:
@@ -153,7 +153,7 @@ def index():
                 sendSparkMsg("files", [gitGud])
             if 'nani' in in_message:
                 sendSparkMsg("files", [nani])
-            if 'backdoor' in in_message:
+            if 'backdoor' in in_message or 'ianal' in in_message:
                 sendSparkMsg("files", [backdoor])
             if 'good bot' in in_message:
                 sendSparkMsg("text", "fuck you!")
