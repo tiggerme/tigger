@@ -168,6 +168,7 @@ def index():
                 sendSparkMsg("files", [never])
             if "logs" in in_message:
                 sendSparkMsg("text", "The Lincoln logs look on the Lincoln logs unlock the Lincoln logs in laws suck my linking logs.")
+            if "developers" in in_message:
                 sendSparkMsg("files", [developers])
             if "party" in in_message:
                 sendSparkMsg("files", [party])
